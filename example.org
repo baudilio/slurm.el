@@ -1,0 +1,36 @@
+#+TITLE: Org babel SLURM.el
+
+Similar to
+
+#+begin_src sh
+sbatch -N 1 << EOD
+#!/bin/sh
+#SBATCH --job-name=ob-slurm
+#SBATCH --output=%x_%j.out
+#SBATCH --error=%x_%j.err
+#SBATCH --exclusive
+#SBATCH --ntasks=1
+
+printf "Helow from node: $HOSTNAME\n"
+
+EOD
+#+end_src
+
+#+RESULTS:
+: Submitted batch job 1200
+
+The idea is to write a org interpreter (babel) for slurm src blocks so that we could type SLURM directives and then run the in the common C-c C-c fashion:
+
+BTA: Org somehow communicates with slurm.el - Observe the misspelled directives are highlited.
+
+#+begin_src slurm
+#SBATCH --job-nama=ob-slurm
+#SBATCH --output=%x_%j.out
+#SBATCH --error=%x_%j.err
+
+#SBATCH --exclusive
+#SBATCH --ntasks=1
+
+printf "Helow from node: $HOSTNAME\n"
+
+#+end_src
